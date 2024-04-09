@@ -3,7 +3,7 @@ package grpc_client
 import (
 	"sync"
 
-	"git.ctisoftware.vn/cti-group/proto-lib/golang/authenticator"
+	"github.com/nguyencaohiep/metabox-school-proto/golang/authenticator"
 	"google.golang.org/grpc"
 )
 

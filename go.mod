@@ -3,7 +3,6 @@ module github.com/nguyencaohiep/metabox-school-proto
 go 1.21.5
 
 require (
-	git.ctisoftware.vn/cti-group/proto-lib v0.0.0-20231212031237-acb178b5d811
 	google.golang.org/grpc v1.63.2
 	google.golang.org/protobuf v1.33.0
 )
