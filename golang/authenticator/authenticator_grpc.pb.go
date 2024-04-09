@@ -19,12 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AuthenticatorService_AccountCreate_FullMethodName       = "/cti.authenticator.v1.AuthenticatorService/AccountCreate"
-	AuthenticatorService_AccountDelete_FullMethodName       = "/cti.authenticator.v1.AuthenticatorService/AccountDelete"
-	AuthenticatorService_AccountDetail_FullMethodName       = "/cti.authenticator.v1.AuthenticatorService/AccountDetail"
-	AuthenticatorService_AccountAll_FullMethodName          = "/cti.authenticator.v1.AuthenticatorService/AccountAll"
-	AuthenticatorService_TokenVerify_FullMethodName         = "/cti.authenticator.v1.AuthenticatorService/TokenVerify"
-	AuthenticatorService_AuthRegenerateToken_FullMethodName = "/cti.authenticator.v1.AuthenticatorService/AuthRegenerateToken"
+	AuthenticatorService_AccountCreate_FullMethodName = "/cti.authenticator.v1.AuthenticatorService/AccountCreate"
 )
 
 // AuthenticatorServiceClient is the client API for AuthenticatorService service.
@@ -32,11 +27,6 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthenticatorServiceClient interface {
 	AccountCreate(ctx context.Context, in *AccountCreateRequest, opts ...grpc.CallOption) (*AccountCreateResponse, error)
-	AccountDelete(ctx context.Context, in *AccountDeleteRequest, opts ...grpc.CallOption) (*AccountDeleteResponse, error)
-	AccountDetail(ctx context.Context, in *AccountDetailRequest, opts ...grpc.CallOption) (*AccountDetailResponse, error)
-	AccountAll(ctx context.Context, in *AccountAllRequest, opts ...grpc.CallOption) (*AccountAllResponse, error)
-	TokenVerify(ctx context.Context, in *TokenVerifyRequest, opts ...grpc.CallOption) (*TokenVerifyResponse, error)
-	AuthRegenerateToken(ctx context.Context, in *AuthRegenerateTokenRequest, opts ...grpc.CallOption) (*AuthRegenerateTokenResponse, error)
 }
 
 type authenticatorServiceClient struct {
@@ -56,61 +46,11 @@ func (c *authenticatorServiceClient) AccountCreate(ctx context.Context, in *Acco
 	return out, nil
 }
 
-func (c *authenticatorServiceClient) AccountDelete(ctx context.Context, in *AccountDeleteRequest, opts ...grpc.CallOption) (*AccountDeleteResponse, error) {
-	out := new(AccountDeleteResponse)
-	err := c.cc.Invoke(ctx, AuthenticatorService_AccountDelete_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticatorServiceClient) AccountDetail(ctx context.Context, in *AccountDetailRequest, opts ...grpc.CallOption) (*AccountDetailResponse, error) {
-	out := new(AccountDetailResponse)
-	err := c.cc.Invoke(ctx, AuthenticatorService_AccountDetail_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticatorServiceClient) AccountAll(ctx context.Context, in *AccountAllRequest, opts ...grpc.CallOption) (*AccountAllResponse, error) {
-	out := new(AccountAllResponse)
-	err := c.cc.Invoke(ctx, AuthenticatorService_AccountAll_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticatorServiceClient) TokenVerify(ctx context.Context, in *TokenVerifyRequest, opts ...grpc.CallOption) (*TokenVerifyResponse, error) {
-	out := new(TokenVerifyResponse)
-	err := c.cc.Invoke(ctx, AuthenticatorService_TokenVerify_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticatorServiceClient) AuthRegenerateToken(ctx context.Context, in *AuthRegenerateTokenRequest, opts ...grpc.CallOption) (*AuthRegenerateTokenResponse, error) {
-	out := new(AuthRegenerateTokenResponse)
-	err := c.cc.Invoke(ctx, AuthenticatorService_AuthRegenerateToken_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AuthenticatorServiceServer is the server API for AuthenticatorService service.
 // All implementations must embed UnimplementedAuthenticatorServiceServer
 // for forward compatibility
 type AuthenticatorServiceServer interface {
 	AccountCreate(context.Context, *AccountCreateRequest) (*AccountCreateResponse, error)
-	AccountDelete(context.Context, *AccountDeleteRequest) (*AccountDeleteResponse, error)
-	AccountDetail(context.Context, *AccountDetailRequest) (*AccountDetailResponse, error)
-	AccountAll(context.Context, *AccountAllRequest) (*AccountAllResponse, error)
-	TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error)
-	AuthRegenerateToken(context.Context, *AuthRegenerateTokenRequest) (*AuthRegenerateTokenResponse, error)
 	mustEmbedUnimplementedAuthenticatorServiceServer()
 }
 
@@ -120,21 +60,6 @@ type UnimplementedAuthenticatorServiceServer struct {
 
 func (UnimplementedAuthenticatorServiceServer) AccountCreate(context.Context, *AccountCreateRequest) (*AccountCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountCreate not implemented")
-}
-func (UnimplementedAuthenticatorServiceServer) AccountDelete(context.Context, *AccountDeleteRequest) (*AccountDeleteResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AccountDelete not implemented")
-}
-func (UnimplementedAuthenticatorServiceServer) AccountDetail(context.Context, *AccountDetailRequest) (*AccountDetailResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AccountDetail not implemented")
-}
-func (UnimplementedAuthenticatorServiceServer) AccountAll(context.Context, *AccountAllRequest) (*AccountAllResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AccountAll not implemented")
-}
-func (UnimplementedAuthenticatorServiceServer) TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TokenVerify not implemented")
-}
-func (UnimplementedAuthenticatorServiceServer) AuthRegenerateToken(context.Context, *AuthRegenerateTokenRequest) (*AuthRegenerateTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AuthRegenerateToken not implemented")
 }
 func (UnimplementedAuthenticatorServiceServer) mustEmbedUnimplementedAuthenticatorServiceServer() {}
 
@@ -167,96 +92,6 @@ func _AuthenticatorService_AccountCreate_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthenticatorService_AccountDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountDeleteRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticatorServiceServer).AccountDelete(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticatorService_AccountDelete_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticatorServiceServer).AccountDelete(ctx, req.(*AccountDeleteRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticatorService_AccountDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountDetailRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticatorServiceServer).AccountDetail(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticatorService_AccountDetail_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticatorServiceServer).AccountDetail(ctx, req.(*AccountDetailRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticatorService_AccountAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountAllRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticatorServiceServer).AccountAll(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticatorService_AccountAll_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticatorServiceServer).AccountAll(ctx, req.(*AccountAllRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticatorService_TokenVerify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TokenVerifyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticatorServiceServer).TokenVerify(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticatorService_TokenVerify_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticatorServiceServer).TokenVerify(ctx, req.(*TokenVerifyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticatorService_AuthRegenerateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AuthRegenerateTokenRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticatorServiceServer).AuthRegenerateToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticatorService_AuthRegenerateToken_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticatorServiceServer).AuthRegenerateToken(ctx, req.(*AuthRegenerateTokenRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // AuthenticatorService_ServiceDesc is the grpc.ServiceDesc for AuthenticatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,26 +102,6 @@ var AuthenticatorService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AccountCreate",
 			Handler:    _AuthenticatorService_AccountCreate_Handler,
-		},
-		{
-			MethodName: "AccountDelete",
-			Handler:    _AuthenticatorService_AccountDelete_Handler,
-		},
-		{
-			MethodName: "AccountDetail",
-			Handler:    _AuthenticatorService_AccountDetail_Handler,
-		},
-		{
-			MethodName: "AccountAll",
-			Handler:    _AuthenticatorService_AccountAll_Handler,
-		},
-		{
-			MethodName: "TokenVerify",
-			Handler:    _AuthenticatorService_TokenVerify_Handler,
-		},
-		{
-			MethodName: "AuthRegenerateToken",
-			Handler:    _AuthenticatorService_AuthRegenerateToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
