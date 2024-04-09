@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package cti.authenticator.v1;
+option go_package = "./authenticator";
+
+service AuthenticatorService {
+  rpc AccountCreate(AccountCreateRequest) returns (AccountCreateResponse);
+  rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
+  rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
+  rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
+  rpc TokenVerify(TokenVerifyRequest) returns (TokenVerifyResponse);
+  rpc AuthRegenerateToken(AuthRegenerateTokenRequest) returns (AuthRegenerateTokenResponse);
+}
+
+message AccountCreateRequest {
+  string workspace_id = 1;
+
+  string name = 2;
+  int32 gender = 3;
+  string birthday = 4;
+  string phone = 5;
+
+  string user_name = 6;
+  string email = 7;
+  string password = 8;
+  string confirm_password = 9;
+}
+
+message AccountCreateResponse {
+  string workspace_id = 1;
+
+  string id = 2;
+  string name = 3;
+  int32 gender = 4;
+  string birthday = 5;
+  string phone = 6;
+
+  string user_name = 7;
+  string email = 8;
+}
+
+message AccountDeleteRequest {
+  string workspace_id = 1;
+  string account_id = 2;
+}
+
+message AccountDeleteResponse {
+  string workspace_id = 1;
+  string account_id = 2;
+}
+
+message AccountDetailRequest {
+  string account_id = 1;
+}
+
+message AccountDetailResponse {
+  string workspace_id = 1;
+  Account account = 2;
+  User user = 3;
+}
+
+message AccountAllRequest {
+  string workspace_id = 1;
+}
+
+message AccountAllResponse {
+  string workspace_id = 1;
+  repeated Account account = 2;
+}
+
+message TokenVerifyRequest {
+  string jwt_token = 1;
+}
+
+message TokenVerifyResponse {
+  User user = 1;
+  string workspace_id = 2;
+  string sub_workspace_id = 3;
+}
+
+message AuthRegenerateTokenRequest {
+  string token = 1;
+  string sub_workspace_id = 2;
+  string position_id = 3;
+}
+
+message AuthRegenerateTokenResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  int32 gender = 3;
+  string email = 4;
+  // repeated emails = 5;
+  string date = 6;
+  string phone = 7;
+  string avatar = 8;
+  Account account = 9;
+  string position_id = 10;
+}
+
+message Account {
+  string username = 1;
+  // string password = 2;
+  string email = 3;
+  string user = 4;
+  string id = 5;
+  Social social = 6;
+}
+
+message Social {
+  Facebook facebook = 1;
+  Google google = 2;
+}
+
+message Facebook {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string access_token = 4;
+  string avatar = 5;
+}
+
+message Google {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string access_token = 4;
+  string avatar = 5;
+}

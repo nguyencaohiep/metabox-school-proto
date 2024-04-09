@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package cti.activity_log.v1;
+option go_package = "./activity-log";
+
+service ActivityLogService {
+    rpc LogAdminCreate(LogCreateRequest) returns (LogCreateResponse);
+    rpc LogUserCreate(LogCreateRequest) returns (LogCreateResponse);
+}
+
+message LogCreateRequest {
+    string workspace_id = 1;
+
+    int32 action = 2;
+    string action_by_id = 3;
+    string action_by_username = 4;
+   
+    string service_name = 5;
+    string func_name = 6;
+    bytes data_change = 7;
+
+    bytes metadata = 8;
+}
+
+message LogCreateResponse {
+    string workspace_id = 1;
+
+    Log log = 2;
+}
+
+message Log {
+    string id = 1;
+
+    int32 action = 2;
+    string action_by_id = 3;
+    string action_by_username = 4;
+   
+    string service_name = 5;
+    string func_name = 6;
+    bytes data_change = 7;
+
+    bytes metadata = 8;
+
+    google.protobuf.Timestamp created_at = 9;
+}

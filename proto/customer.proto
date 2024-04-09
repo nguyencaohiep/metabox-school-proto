@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package cti.customer.v1;
+option go_package = "./customer";
+
+service CustomerService {
+    rpc StaffTotalCreate(CustomerTotalCreateRequest) returns (CustomerTotalCreateResponse);
+}
+
+message CustomerTotalCreateRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    bool is_booking_first = 3;
+}
+
+message CustomerTotalCreateResponse{}

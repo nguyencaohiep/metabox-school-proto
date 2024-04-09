@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package cti.reward_point.v1;
+option go_package = "./reward-point";
+
+service RewardPointService {
+  rpc PointVendorCreate(PointVendorCreateRequest) returns (PointVendorCreateResponse);
+}
+
+message PointVendorCreateRequest {
+  string workspace_id = 1;
+  string sub_workspace_id = 2;
+  string created_by = 3;
+  string vendor_id = 4;
+  int32 type = 5;
+}
+
+message PointVendorCreateResponse {
+  string workspace_id = 1;
+  string point_id = 2;
+  string vendor_id = 3;
+  int32 type = 4;
+}
+

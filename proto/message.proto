@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package cti.message.v1;
+option go_package = "./message";
+
+service MessageService {
+  rpc MailAdminCreate(MailCreateRequest) returns (MailCreateResponse);
+  rpc MailUserCreate(MailCreateRequest) returns (MailCreateResponse);
+  rpc NotificationUserCreate(NotificationCreateRequest) returns (NotificationCreateResponse);
+  rpc NotificationAdminCreate(NotificationCreateRequest) returns (NotificationCreateResponse);
+}
+
+message MailCreateRequest {
+  string workspace_id = 1;
+
+  string sender = 2;
+  repeated string recipients = 3;
+  string subject = 4;
+  string body = 5;
+  repeated string attachments = 6;
+  bytes metadata = 7;
+}
+
+message MailCreateResponse {
+  string workspace_id = 1;
+
+  Mail mail = 2;
+}
+
+message Mail {
+  string workspace_id = 1;
+  string id = 2;
+  string sender = 3;
+  repeated string recipients = 4;
+  string subject = 5;
+  string body = 6;
+  bytes metadata = 7;
+  repeated string attachments = 8;
+  int32 status = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+  bool deleted = 12;
+}
+
+message NotificationCreateRequest {
+  string workspace_id = 1;
+
+  string recipient = 2;
+  string title = 3;
+  string content = 4;
+  bytes metadata = 5;
+  int32 type = 6;
+}
+
+message NotificationCreateResponse {
+  string workspace_id = 1;
+
+  Notification notification = 2;
+}
+
+message Notification {
+  string workspace_id = 1;
+  string id = 2;
+  string recipient = 3;
+  string title = 4;
+  string content = 5;
+  bytes metadata = 6;
+  int32 status = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+  bool deleted = 10;
+  int32 type = 11;
+}

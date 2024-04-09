@@ -1,0 +1,259 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package cti.employee.v1;
+option go_package = "./employee";
+
+service EmployeeService {
+    rpc JobCreate(JobCreateRequest) returns (JobCreateResponse);
+    rpc JobCreateCoach(JobCreateCoachRequest) returns (JobCreateCoachResponse);
+    rpc JobDeleteCoach(JobDeleteCoachRequest) returns (JobDeleteCoachResponse);
+    rpc JobUpdateStatus(JobUpdateStatusRequest) returns (JobUpdateStatusResponse);
+    rpc JobUpdateWhenBookingDone(JobUpdateWhenBookingDoneRequest) returns (JobUpdateWhenBookingDoneResponse);
+    rpc JobUpdateWhenBookingAddLinkImageRetouch(JobUpdateWhenBookingAddLinkImageRetouchRequest) returns (JobUpdateWhenBookingAddLinkImageRetouchResponse);
+    rpc PositionByAccountID(PositionByAccountIDRequest) returns (PositionByAccountIDResponse);
+    rpc StaffsByName(StaffsByNameRequest) returns (StaffsByNameResponse);
+    rpc StaffInfos(StaffInfosRequest) returns (StaffInfosResponse);
+    rpc StaffByAccountID(StaffByAccountIDRequest) returns (StaffByAccountIDResponse);
+
+    rpc StaffStatusByAccountID(StaffStatusByAccountIDRequest) returns (StaffStatusByAccountIDResponse);
+    rpc StaffSubWorkspaceStatus(StaffSubWorkspaceStatusRequest) returns (StaffSubWorkspaceStatusResponse);
+}
+
+message StaffSubWorkspaceStatusRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+    string account_id = 3;
+    string staff_id = 4;
+}
+
+message StaffSubWorkspaceStatusResponse {
+    int32 current_status = 1;
+}
+
+message StaffStatusByAccountIDRequest {
+    string workspace_id = 1;
+    string account_id = 2;
+    string staff_id = 3;
+}
+
+message StaffStatusByAccountIDResponse {
+    int32 current_status = 1;
+}
+
+message StaffByAccountIDRequest{
+    string workspace_id = 1;
+    string account_id = 2;
+}
+
+message StaffByAccountIDResponse{
+    Staff staff = 1;
+}
+
+message StaffInfosRequest{
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+}
+
+message StaffInfosResponse{
+    repeated string email = 1;
+    repeated string staff_id = 2;
+}
+
+message StaffsByNameRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+    string name = 3;
+}
+
+message StaffsByNameResponse {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+    repeated string accounts_id = 3;
+}
+
+message JobDeleteCoachRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    string booking_id = 3;
+
+    string created_by = 4;
+}
+
+message JobDeleteCoachResponse {}
+
+message JobUpdateWhenBookingAddLinkImageRetouchRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    string account_id = 3;
+    string booking_id = 4;
+
+    google.protobuf.Timestamp link_image_retouch_created_at = 5;
+}
+
+message JobUpdateWhenBookingAddLinkImageRetouchResponse {}
+
+message PositionByAccountIDResponse {
+    string workspace_id = 1;
+
+    Position position = 2;
+}
+
+message PositionByAccountIDRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    string account_id = 3;
+}
+
+message JobUpdateWhenBookingDoneRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    float number_attendance = 3;
+    float number_reward = 4;
+
+    string staff_id = 5;
+    string account_id = 6;
+    string booking_id = 7;
+}
+
+message JobUpdateWhenBookingDoneResponse {
+    string workspace_id = 1;
+    
+    Job job = 2;
+}
+
+message JobUpdateStatusRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    int32 current_status = 3;
+
+    string staff_id = 4;
+    string account_id = 5;
+    string booking_id = 6;
+}
+
+message JobUpdateStatusResponse {
+    string workspace_id = 1;
+    
+    Job job = 2;
+}
+
+message JobCreateRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    google.protobuf.Timestamp from = 3;
+    google.protobuf.Timestamp to = 4;
+    int32 current_status = 5;
+    repeated string account_id_add = 6;
+    repeated string account_id_delete = 7;
+    string booking_id = 8;
+
+    bool flag_photo = 9;
+    bool flag_makeup = 10;
+    bool flag_image_processing = 11;
+    bool flag_image_print = 12;
+    bool flag_retouch = 13;
+    bool flag_take_on = 14;
+    bool flag_take_off = 15;
+
+    string created_by = 16;
+    string customer_id = 17;
+}
+
+message JobCreateResponse {
+    string workspace_id = 1;
+    
+    Job job = 2;
+}
+
+message JobCreateCoachRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+
+    google.protobuf.Timestamp from = 3;
+    google.protobuf.Timestamp to = 4;
+
+    string booking_id = 5;
+
+    string created_by = 6;
+
+    bool flag_photo = 7;
+    bool flag_makeup = 8;
+    bool flag_retouch = 9;
+    bool flag_take_care = 10;
+
+    string customer_id = 11;
+}
+
+message JobCreateCoachResponse {
+    string workspace_id = 1;
+    
+    repeated Job job = 2;
+}
+
+message Job {
+    string id = 1;
+
+    google.protobuf.Timestamp from = 2;
+    google.protobuf.Timestamp to = 3;
+    int32 current_status = 4;
+
+    string staff_id = 5;
+    string account_id = 6;
+    MetadataJob metadata = 7;
+    string sub_workspace_id = 8;
+
+    bool flag_photo = 9;
+    bool flag_makeup = 10;
+    bool flag_image_processing = 11;
+    bool flag_image_print = 12;
+    bool flag_retouch = 13;
+    bool flag_take_on = 14;
+    bool flag_take_off = 15;
+
+    string created_by = 16;
+
+    float number_attendance = 17;
+    float number_reward = 18;
+}
+
+message MetadataJob {
+    string booking_id = 1;
+}
+
+message Position {
+    string id = 1;
+
+    string name = 2;
+    string description = 3;
+
+    Coefficient coefficient = 4;
+
+    string department_id = 5;
+    string sub_workspace_id = 6;
+}
+
+message Coefficient {
+    float salary = 1;
+    float attendance = 2;
+    float time = 3;
+    float performance = 4;
+    float responsibility_allowance = 5;
+    float image = 6;
+    float business_bonus = 7;
+}
+
+message Staff {
+    string id = 1;
+
+    string name = 2;
+    string email = 3;
+    string phone_number = 4;
+}

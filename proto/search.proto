@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package cti.search.v1;
+option go_package = "./search";
+
+service SearchService {
+  rpc AddRecordFolder(RecordFolderRequest) returns (RecordFolderResponse);
+
+  rpc UpdateRecordFolder(RecordFolderRequest) returns (RecordFolderResponse);
+
+  rpc DeleteRecordFolder(RecordFolderRequest) returns (RecordFolderResponse);
+
+  rpc AddRecordAccountPlatform(RecordAccountPlatformRequest) returns (RecordAccountPlatformResponse);
+  
+  rpc UpdateRecordAccountPlatform(RecordAccountPlatformRequest) returns (RecordAccountPlatformResponse);
+
+  rpc DeleteRecordAccountPlatform(RecordAccountPlatformRequest) returns (RecordAccountPlatformResponse);
+
+  rpc AddRecordDocument(RecordDocumentRequest) returns (RecordDocumentResponse);
+  
+  rpc UpdateRecordDocument(RecordDocumentRequest) returns (RecordDocumentResponse);
+
+  rpc DeleteRecordDocument(RecordDocumentRequest) returns (RecordDocumentResponse);
+
+  rpc AddRecordInfrastructure(RecordInfrastructureRequest) returns (RecordInfrastructureResponse);
+  
+  rpc UpdateRecordInfrastructure(RecordInfrastructureRequest) returns (RecordInfrastructureResponse);
+
+  rpc DeleteRecordInfrastructure(RecordInfrastructureRequest) returns (RecordInfrastructureResponse);
+}
+
+message RecordFolderRequest {
+  string id = 1;
+  string name = 2;
+  string workspace_id = 3;
+  bool temporary_deletion = 4;
+  repeated string list_viewer =  5;
+}
+
+message RecordFolderResponse {
+}
+
+message RecordAccountPlatformRequest {
+  string id = 1;
+  string desc = 2;
+  string workspace_id = 3;
+  bool temporary_deletion = 4;
+  repeated string list_viewer =  5;
+}
+
+
+message RecordAccountPlatformResponse {
+}
+
+
+message RecordDocumentRequest {
+  string id = 1;
+  string title = 2;
+  string workspace_id = 3;
+  bool temporary_deletion = 4;
+  repeated string list_viewer =  5;
+}
+
+
+message RecordDocumentResponse {
+}
+
+
+message RecordInfrastructureRequest {
+  string id = 1;
+  string desc = 2;
+  string workspace_id = 3;
+  bool temporary_deletion = 4;
+  repeated string list_viewer =  5;
+}
+
+
+message RecordInfrastructureResponse {
+}

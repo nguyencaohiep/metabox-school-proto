@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package cti.photo.v1;
+option go_package = "./photo";
+
+service PhotoService {
+  rpc PhotoUpload(PhotoUploadRequest) returns (PhotoUploadResponse);
+}
+
+message PhotoUploadRequest {
+  string workspace_id = 1;
+  string qrcode_id = 2;
+  string filename = 3;
+  bytes content = 4;
+}
+
+message PhotoUploadResponse {
+  string workspace_id = 1;
+  string image_url = 2;
+}
+

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package cti.order.v1;
+option go_package = "./order";
+
+service OrderService {
+  rpc TotalSalesForOne(TotalSalesForOneRequest) returns (TotalSalesForOneResponse);
+  rpc TotalSalesForTeam(TotalSalesForTeamRequest) returns (TotalSalesForTeamResponse);
+  rpc TotalSalesForServiceCategory(TotalSalesForServiceCategoryRequest) returns (TotalSalesForServiceCategoryResponse);
+
+  rpc TotalRevenueForOne(TotalRevenueForOneRequest) returns (TotalRevenueForOneResponse);
+}
+
+message TotalRevenueForOneRequest {
+  string workspace_id = 1;
+  string sub_workspace_id = 2;
+  string account_id = 3;
+  google.protobuf.Timestamp from = 4;
+  google.protobuf.Timestamp to = 5;
+  string service_category_id = 6;
+}
+
+message TotalRevenueForOneResponse {
+  double result = 1;
+}
+
+message TotalSalesForServiceCategoryRequest {
+  string workspace_id = 1;
+  string sub_workspace_id = 2;
+  google.protobuf.Timestamp from = 3;
+  google.protobuf.Timestamp to = 4;
+  string service_category_id = 5;
+}
+
+message TotalSalesForServiceCategoryResponse {
+  double result = 1;
+}
+
+
+message TotalSalesForTeamRequest {
+    string workspace_id = 1;
+    string sub_workspace_id = 2;
+    string team_id = 3;
+    google.protobuf.Timestamp from = 4;
+    google.protobuf.Timestamp to = 5;
+    string service_category_id = 6;
+}
+  
+message TotalSalesForTeamResponse {
+    double result = 1;
+}
+
+message TotalSalesForOneRequest {
+  string workspace_id = 1;
+  string sub_workspace_id = 2;
+  string account_id = 3;
+  google.protobuf.Timestamp from = 4;
+  google.protobuf.Timestamp to = 5;
+  string service_category_id = 6;
+}
+
+message TotalSalesForOneResponse {
+  double result = 1;
+}
