@@ -8,13 +8,14 @@ service AuthenticatorService {
   // rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
   // rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
   // rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
-  // rpc TokenVerify(TokenVerifyRequest) returns (TokenVerifyResponse);
+  rpc TokenVerify(TokenVerifyRequest) returns (TokenVerifyResponse);
   // rpc AuthRegenerateToken(AuthRegenerateTokenRequest) returns (AuthRegenerateTokenResponse);
 }
 
 message AccountCreateRequest {
   string user_name = 1;
   string password = 2;
+  string role = 3;
 }
 
 message AccountCreateResponse {}
@@ -53,9 +54,9 @@ message TokenVerifyRequest {
 }
 
 message TokenVerifyResponse {
-  User user = 1;
-  string workspace_id = 2;
-  string sub_workspace_id = 3;
+  string user_name = 1;
+  string password = 2;
+  string role = 3;
 }
 
 message AuthRegenerateTokenRequest {

@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	AuthenticatorService_AccountCreate_FullMethodName = "/cti.authenticator.v1.AuthenticatorService/AccountCreate"
+	AuthenticatorService_TokenVerify_FullMethodName   = "/cti.authenticator.v1.AuthenticatorService/TokenVerify"
 )
 
 // AuthenticatorServiceClient is the client API for AuthenticatorService service.
@@ -27,6 +28,10 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthenticatorServiceClient interface {
 	AccountCreate(ctx context.Context, in *AccountCreateRequest, opts ...grpc.CallOption) (*AccountCreateResponse, error)
+	// rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
+	// rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
+	// rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
+	TokenVerify(ctx context.Context, in *TokenVerifyRequest, opts ...grpc.CallOption) (*TokenVerifyResponse, error)
 }
 
 type authenticatorServiceClient struct {
@@ -46,11 +51,24 @@ func (c *authenticatorServiceClient) AccountCreate(ctx context.Context, in *Acco
 	return out, nil
 }
 
+func (c *authenticatorServiceClient) TokenVerify(ctx context.Context, in *TokenVerifyRequest, opts ...grpc.CallOption) (*TokenVerifyResponse, error) {
+	out := new(TokenVerifyResponse)
+	err := c.cc.Invoke(ctx, AuthenticatorService_TokenVerify_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthenticatorServiceServer is the server API for AuthenticatorService service.
 // All implementations must embed UnimplementedAuthenticatorServiceServer
 // for forward compatibility
 type AuthenticatorServiceServer interface {
 	AccountCreate(context.Context, *AccountCreateRequest) (*AccountCreateResponse, error)
+	// rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
+	// rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
+	// rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
+	TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error)
 	mustEmbedUnimplementedAuthenticatorServiceServer()
 }
 
@@ -60,6 +78,9 @@ type UnimplementedAuthenticatorServiceServer struct {
 
 func (UnimplementedAuthenticatorServiceServer) AccountCreate(context.Context, *AccountCreateRequest) (*AccountCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountCreate not implemented")
+}
+func (UnimplementedAuthenticatorServiceServer) TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TokenVerify not implemented")
 }
 func (UnimplementedAuthenticatorServiceServer) mustEmbedUnimplementedAuthenticatorServiceServer() {}
 
@@ -92,6 +113,24 @@ func _AuthenticatorService_AccountCreate_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthenticatorService_TokenVerify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TokenVerifyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthenticatorServiceServer).TokenVerify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthenticatorService_TokenVerify_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthenticatorServiceServer).TokenVerify(ctx, req.(*TokenVerifyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthenticatorService_ServiceDesc is the grpc.ServiceDesc for AuthenticatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +141,10 @@ var AuthenticatorService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AccountCreate",
 			Handler:    _AuthenticatorService_AccountCreate_Handler,
+		},
+		{
+			MethodName: "TokenVerify",
+			Handler:    _AuthenticatorService_TokenVerify_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
