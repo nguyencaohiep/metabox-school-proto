@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AuthenticatorService_AccountCreate_FullMethodName = "/cti.authenticator.v1.AuthenticatorService/AccountCreate"
-	AuthenticatorService_TokenVerify_FullMethodName   = "/cti.authenticator.v1.AuthenticatorService/TokenVerify"
+	AuthenticatorService_AccountCreate_FullMethodName = "/mex.authenticator.v1.AuthenticatorService/AccountCreate"
+	AuthenticatorService_TokenVerify_FullMethodName   = "/mex.authenticator.v1.AuthenticatorService/TokenVerify"
 )
 
 // AuthenticatorServiceClient is the client API for AuthenticatorService service.
@@ -135,7 +135,7 @@ func _AuthenticatorService_TokenVerify_Handler(srv interface{}, ctx context.Cont
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AuthenticatorService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "cti.authenticator.v1.AuthenticatorService",
+	ServiceName: "mex.authenticator.v1.AuthenticatorService",
 	HandlerType: (*AuthenticatorServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

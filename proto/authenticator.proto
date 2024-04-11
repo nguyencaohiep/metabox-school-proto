@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package cti.authenticator.v1;
+package mex.authenticator.v1;
 option go_package = "./authenticator";
 
 service AuthenticatorService {

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package mex.school.v1;
+option go_package = "./school";
+
+service SchoolService {
+  rpc ListSchool(ListSchoolRequest) returns (ListSchoolResponse);
+}
+
+message ListSchoolRequest {}
+
+message ListSchoolResponse {
+  repeated School schools = 1;
+}
+
+message School {
+  string id = 1;
+  string name = 2;
+  string code = 3;
+  int32 type = 4;
+}
