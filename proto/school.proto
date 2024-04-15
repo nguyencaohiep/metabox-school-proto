@@ -5,12 +5,17 @@ option go_package = "./school";
 
 service SchoolService {
   rpc ListSchool(ListSchoolRequest) returns (ListSchoolResponse);
+  rpc SchoolById(SchoolByIdRequest) returns (School);
 }
 
 message ListSchoolRequest {}
 
 message ListSchoolResponse {
   repeated School schools = 1;
+}
+
+message SchoolByIdRequest {
+  string school_id = 1;
 }
 
 message School {

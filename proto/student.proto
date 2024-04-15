@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package mex.school.v1;
+option go_package = "./student";
+
+service StudentService {
+  rpc StudentById(StudentByIdRequest) returns (Student);
+}
+
+
+message StudentByIdRequest {
+  string student_id = 1;
+}
+
+message Student {
+  string full_name = 1;
+  int32 gender = 2;
+  string code = 3;
+  string birthday = 4;
+  string citizen_identification_code = 5;
+  int32 student_type = 6;
+  string birth_place = 7;
+  string ethnic = 8;
+  string permanent_address = 9;
+  string father_name = 10;
+  string father_phone = 11;
+  string father_job = 12;
+  string mother_name = 13;
+  string mother_phone = 14;
+  string mother_job = 15;
+  string district = 16;
+  string graduation_year = 17;
+  string conduct = 18;
+  string disability_type = 19;
+}
