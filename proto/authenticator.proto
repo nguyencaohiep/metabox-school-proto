@@ -18,6 +18,7 @@ message AccountCreateRequest {
   string role = 3;
   string school_id = 4;
   string student_id = 5;
+  string owner_name = 6;
 }
 
 message AccountCreateResponse {}
