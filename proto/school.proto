@@ -6,6 +6,8 @@ option go_package = "./school";
 service SchoolService {
   rpc ListSchool(ListSchoolRequest) returns (ListSchoolResponse);
   rpc SchoolById(SchoolByIdRequest) returns (School);
+
+  rpc SpecializedSchool(SpecializedSchoolRequest) returns (School);
 }
 
 message ListSchoolRequest {}
@@ -17,6 +19,8 @@ message ListSchoolResponse {
 message SchoolByIdRequest {
   string school_id = 1;
 }
+
+message SpecializedSchoolRequest {}
 
 message School {
   string id = 1;
