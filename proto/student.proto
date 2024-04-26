@@ -33,4 +33,5 @@ message Student {
   string conduct = 18;
   string disability_type = 19;
   string academic_ability = 20;
+  string avatar = 21;
 }
