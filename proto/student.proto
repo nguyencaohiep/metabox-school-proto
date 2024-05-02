@@ -23,15 +23,13 @@ message Student {
   string ethnic = 8;
   string permanent_address = 9;
   string father_name = 10;
-  string father_phone = 11;
+  string father_birth_year = 11;
   string father_job = 12;
   string mother_name = 13;
-  string mother_phone = 14;
+  string mother_birth_year = 14;
   string mother_job = 15;
-  string district = 16;
-  string graduation_year = 17;
-  string conduct = 18;
-  string disability_type = 19;
-  string academic_ability = 20;
-  string avatar = 21;
+  string status = 16;
+  string disability_type = 17;
+  string academic_ability = 18;
+  string avatar = 19;
 }
