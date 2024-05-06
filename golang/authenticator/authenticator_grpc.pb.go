@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	AuthenticatorService_AccountCreate_FullMethodName = "/mex.authenticator.v1.AuthenticatorService/AccountCreate"
+	AuthenticatorService_AccountDelete_FullMethodName = "/mex.authenticator.v1.AuthenticatorService/AccountDelete"
 	AuthenticatorService_TokenVerify_FullMethodName   = "/mex.authenticator.v1.AuthenticatorService/TokenVerify"
 )
 
@@ -28,7 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthenticatorServiceClient interface {
 	AccountCreate(ctx context.Context, in *AccountCreateRequest, opts ...grpc.CallOption) (*AccountCreateResponse, error)
-	// rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
+	AccountDelete(ctx context.Context, in *AccountDeleteRequest, opts ...grpc.CallOption) (*AccountDeleteResponse, error)
 	// rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
 	// rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
 	TokenVerify(ctx context.Context, in *TokenVerifyRequest, opts ...grpc.CallOption) (*TokenVerifyResponse, error)
@@ -51,6 +52,15 @@ func (c *authenticatorServiceClient) AccountCreate(ctx context.Context, in *Acco
 	return out, nil
 }
 
+func (c *authenticatorServiceClient) AccountDelete(ctx context.Context, in *AccountDeleteRequest, opts ...grpc.CallOption) (*AccountDeleteResponse, error) {
+	out := new(AccountDeleteResponse)
+	err := c.cc.Invoke(ctx, AuthenticatorService_AccountDelete_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *authenticatorServiceClient) TokenVerify(ctx context.Context, in *TokenVerifyRequest, opts ...grpc.CallOption) (*TokenVerifyResponse, error) {
 	out := new(TokenVerifyResponse)
 	err := c.cc.Invoke(ctx, AuthenticatorService_TokenVerify_FullMethodName, in, out, opts...)
@@ -65,7 +75,7 @@ func (c *authenticatorServiceClient) TokenVerify(ctx context.Context, in *TokenV
 // for forward compatibility
 type AuthenticatorServiceServer interface {
 	AccountCreate(context.Context, *AccountCreateRequest) (*AccountCreateResponse, error)
-	// rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
+	AccountDelete(context.Context, *AccountDeleteRequest) (*AccountDeleteResponse, error)
 	// rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
 	// rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
 	TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error)
@@ -78,6 +88,9 @@ type UnimplementedAuthenticatorServiceServer struct {
 
 func (UnimplementedAuthenticatorServiceServer) AccountCreate(context.Context, *AccountCreateRequest) (*AccountCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountCreate not implemented")
+}
+func (UnimplementedAuthenticatorServiceServer) AccountDelete(context.Context, *AccountDeleteRequest) (*AccountDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AccountDelete not implemented")
 }
 func (UnimplementedAuthenticatorServiceServer) TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TokenVerify not implemented")
@@ -113,6 +126,24 @@ func _AuthenticatorService_AccountCreate_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthenticatorService_AccountDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthenticatorServiceServer).AccountDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthenticatorService_AccountDelete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthenticatorServiceServer).AccountDelete(ctx, req.(*AccountDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AuthenticatorService_TokenVerify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(TokenVerifyRequest)
 	if err := dec(in); err != nil {
@@ -141,6 +172,10 @@ var AuthenticatorService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AccountCreate",
 			Handler:    _AuthenticatorService_AccountCreate_Handler,
+		},
+		{
+			MethodName: "AccountDelete",
+			Handler:    _AuthenticatorService_AccountDelete_Handler,
 		},
 		{
 			MethodName: "TokenVerify",

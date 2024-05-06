@@ -5,7 +5,7 @@ option go_package = "./authenticator";
 
 service AuthenticatorService {
   rpc AccountCreate(AccountCreateRequest) returns (AccountCreateResponse);
-  // rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
+  rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
   // rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
   // rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
   rpc TokenVerify(TokenVerifyRequest) returns (TokenVerifyResponse);
@@ -29,13 +29,11 @@ message AccountAdd {
 message AccountCreateResponse {}
 
 message AccountDeleteRequest {
-  string workspace_id = 1;  
-  string account_id = 2;
+  string username = 1;
 }
 
 message AccountDeleteResponse {
-  string workspace_id = 1;
-  string account_id = 2;
+  string account_id = 1;
 }
 
 message AccountDetailRequest {
@@ -99,26 +97,4 @@ message Account {
   string email = 3;
   string user = 4;
   string id = 5;
-  Social social = 6;
-}
-
-message Social {
-  Facebook facebook = 1;
-  Google google = 2;
-}
-
-message Facebook {
-  string id = 1;
-  string name = 2;
-  string email = 3;
-  string access_token = 4;
-  string avatar = 5;
-}
-
-message Google {
-  string id = 1;
-  string name = 2;
-  string email = 3;
-  string access_token = 4;
-  string avatar = 5;
 }
