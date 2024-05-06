@@ -32,4 +32,6 @@ message Student {
   string disability_type = 17;
   string academic_ability = 18;
   string avatar = 19;
+  string mother_phone_number = 20;
+  string father_phone_number = 21;
 }
