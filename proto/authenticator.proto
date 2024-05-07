@@ -6,7 +6,7 @@ option go_package = "./authenticator";
 service AuthenticatorService {
   rpc AccountCreate(AccountCreateRequest) returns (AccountCreateResponse);
   rpc AccountDelete(AccountDeleteRequest) returns (AccountDeleteResponse);
-  // rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
+  rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
   // rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
   rpc TokenVerify(TokenVerifyRequest) returns (TokenVerifyResponse);
   // rpc AuthRegenerateToken(AuthRegenerateTokenRequest) returns (AuthRegenerateTokenResponse);
@@ -41,9 +41,7 @@ message AccountDetailRequest {
 }
 
 message AccountDetailResponse {
-  string workspace_id = 1;
-  Account account = 2;
-  User user = 3;
+  string account_id = 1;
 }
 
 message AccountAllRequest {
