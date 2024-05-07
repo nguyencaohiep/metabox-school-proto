@@ -37,7 +37,7 @@ message AccountDeleteResponse {
 }
 
 message AccountDetailRequest {
-  string account_id = 1;
+  string username = 1;
 }
 
 message AccountDetailResponse {
