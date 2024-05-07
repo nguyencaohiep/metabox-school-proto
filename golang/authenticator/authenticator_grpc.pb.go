@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AuthenticatorService_AccountCreate_FullMethodName = "/mex.authenticator.v1.AuthenticatorService/AccountCreate"
-	AuthenticatorService_AccountDelete_FullMethodName = "/mex.authenticator.v1.AuthenticatorService/AccountDelete"
-	AuthenticatorService_AccountDetail_FullMethodName = "/mex.authenticator.v1.AuthenticatorService/AccountDetail"
-	AuthenticatorService_TokenVerify_FullMethodName   = "/mex.authenticator.v1.AuthenticatorService/TokenVerify"
+	AuthenticatorService_AccountCreate_FullMethodName     = "/mex.authenticator.v1.AuthenticatorService/AccountCreate"
+	AuthenticatorService_AccountDelete_FullMethodName     = "/mex.authenticator.v1.AuthenticatorService/AccountDelete"
+	AuthenticatorService_CheckExistAccount_FullMethodName = "/mex.authenticator.v1.AuthenticatorService/CheckExistAccount"
+	AuthenticatorService_TokenVerify_FullMethodName       = "/mex.authenticator.v1.AuthenticatorService/TokenVerify"
 )
 
 // AuthenticatorServiceClient is the client API for AuthenticatorService service.
@@ -31,7 +31,8 @@ const (
 type AuthenticatorServiceClient interface {
 	AccountCreate(ctx context.Context, in *AccountCreateRequest, opts ...grpc.CallOption) (*AccountCreateResponse, error)
 	AccountDelete(ctx context.Context, in *AccountDeleteRequest, opts ...grpc.CallOption) (*AccountDeleteResponse, error)
-	AccountDetail(ctx context.Context, in *AccountDetailRequest, opts ...grpc.CallOption) (*AccountDetailResponse, error)
+	// rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
+	CheckExistAccount(ctx context.Context, in *CheckExistAccountRequest, opts ...grpc.CallOption) (*CheckExistAccountResponse, error)
 	// rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
 	TokenVerify(ctx context.Context, in *TokenVerifyRequest, opts ...grpc.CallOption) (*TokenVerifyResponse, error)
 }
@@ -62,9 +63,9 @@ func (c *authenticatorServiceClient) AccountDelete(ctx context.Context, in *Acco
 	return out, nil
 }
 
-func (c *authenticatorServiceClient) AccountDetail(ctx context.Context, in *AccountDetailRequest, opts ...grpc.CallOption) (*AccountDetailResponse, error) {
-	out := new(AccountDetailResponse)
-	err := c.cc.Invoke(ctx, AuthenticatorService_AccountDetail_FullMethodName, in, out, opts...)
+func (c *authenticatorServiceClient) CheckExistAccount(ctx context.Context, in *CheckExistAccountRequest, opts ...grpc.CallOption) (*CheckExistAccountResponse, error) {
+	out := new(CheckExistAccountResponse)
+	err := c.cc.Invoke(ctx, AuthenticatorService_CheckExistAccount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +87,8 @@ func (c *authenticatorServiceClient) TokenVerify(ctx context.Context, in *TokenV
 type AuthenticatorServiceServer interface {
 	AccountCreate(context.Context, *AccountCreateRequest) (*AccountCreateResponse, error)
 	AccountDelete(context.Context, *AccountDeleteRequest) (*AccountDeleteResponse, error)
-	AccountDetail(context.Context, *AccountDetailRequest) (*AccountDetailResponse, error)
+	// rpc AccountDetail(AccountDetailRequest) returns (AccountDetailResponse);
+	CheckExistAccount(context.Context, *CheckExistAccountRequest) (*CheckExistAccountResponse, error)
 	// rpc AccountAll(AccountAllRequest) returns (AccountAllResponse);
 	TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error)
 	mustEmbedUnimplementedAuthenticatorServiceServer()
@@ -102,8 +104,8 @@ func (UnimplementedAuthenticatorServiceServer) AccountCreate(context.Context, *A
 func (UnimplementedAuthenticatorServiceServer) AccountDelete(context.Context, *AccountDeleteRequest) (*AccountDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountDelete not implemented")
 }
-func (UnimplementedAuthenticatorServiceServer) AccountDetail(context.Context, *AccountDetailRequest) (*AccountDetailResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AccountDetail not implemented")
+func (UnimplementedAuthenticatorServiceServer) CheckExistAccount(context.Context, *CheckExistAccountRequest) (*CheckExistAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckExistAccount not implemented")
 }
 func (UnimplementedAuthenticatorServiceServer) TokenVerify(context.Context, *TokenVerifyRequest) (*TokenVerifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TokenVerify not implemented")
@@ -157,20 +159,20 @@ func _AuthenticatorService_AccountDelete_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthenticatorService_AccountDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountDetailRequest)
+func _AuthenticatorService_CheckExistAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckExistAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthenticatorServiceServer).AccountDetail(ctx, in)
+		return srv.(AuthenticatorServiceServer).CheckExistAccount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthenticatorService_AccountDetail_FullMethodName,
+		FullMethod: AuthenticatorService_CheckExistAccount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticatorServiceServer).AccountDetail(ctx, req.(*AccountDetailRequest))
+		return srv.(AuthenticatorServiceServer).CheckExistAccount(ctx, req.(*CheckExistAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -209,8 +211,8 @@ var AuthenticatorService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthenticatorService_AccountDelete_Handler,
 		},
 		{
-			MethodName: "AccountDetail",
-			Handler:    _AuthenticatorService_AccountDetail_Handler,
+			MethodName: "CheckExistAccount",
+			Handler:    _AuthenticatorService_CheckExistAccount_Handler,
 		},
 		{
 			MethodName: "TokenVerify",
