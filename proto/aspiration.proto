@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package mex.aspiration.v1;
+option go_package = "./aspiration";
+
+service AspirationService {
+  rpc AspirationDeleteByStudentID(AspirationDeleteByStudentIDRequest) returns (AspirationDeleteByStudentIDRespone);
+
+}
+
+message AspirationDeleteByStudentIDRequest {
+  string student_id = 1;
+}
+
+message AspirationDeleteByStudentIDRespone {
+
+}
