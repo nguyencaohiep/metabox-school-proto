@@ -10,7 +10,7 @@ service StudentService {
 
 
 message StudentByIdRequest {
-  string student_id = 1;
+ repeated string student_id = 1;
 }
 
 message Student {
