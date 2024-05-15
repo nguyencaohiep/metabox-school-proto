@@ -5,6 +5,7 @@ option go_package = "./student";
 
 service StudentService {
   rpc StudentById(StudentByIdRequest) returns (Student);
+  rpc StudentUpdateIsHaveAspiration(StudentUpdateIsHaveAspirationRequest) returns (StudentUpdateIsHaveAspirationRespone);
 }
 
 
@@ -34,4 +35,11 @@ message Student {
   string avatar = 19;
   string mother_phone_number = 20;
   string father_phone_number = 21;
+}
+
+message StudentUpdateIsHaveAspirationRequest {
+  string student_id  = 1;
+}
+
+message StudentUpdateIsHaveAspirationRespone {
 }
