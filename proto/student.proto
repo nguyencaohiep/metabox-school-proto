@@ -10,7 +10,7 @@ service StudentService {
 
 
 message StudentByIdRequest {
- repeated string student_id = 1;
+  string student_id = 1;
 }
 
 message Student {
@@ -38,7 +38,7 @@ message Student {
 }
 
 message StudentUpdateIsHaveAspirationRequest {
-  string student_id  = 1;
+  repeated string student_id  = 1;
 }
 
 message StudentUpdateIsHaveAspirationRespone {
