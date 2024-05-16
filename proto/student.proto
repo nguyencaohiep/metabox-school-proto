@@ -6,8 +6,17 @@ option go_package = "./student";
 service StudentService {
   rpc StudentById(StudentByIdRequest) returns (Student);
   rpc StudentUpdateIsHaveAspiration(StudentUpdateIsHaveAspirationRequest) returns (StudentUpdateIsHaveAspirationRespone);
+
+  rpc CheckEthnicStudent(CheckEthnicStudentRequest) returns (CheckEthnicStudentRespone);
 }
 
+message CheckEthnicStudentRequest {
+  string Student_id = 1;
+}
+
+message CheckEthnicStudentRespone {
+  bool is_true = 1;
+}
 
 message StudentByIdRequest {
   string student_id = 1;
